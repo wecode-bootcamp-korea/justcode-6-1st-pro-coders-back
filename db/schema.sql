@@ -122,24 +122,6 @@ CREATE TABLE `keyword` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `product_gender`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `product_gender` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int NOT NULL,
-  `gender_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_id` (`product_id`),
-  KEY `gender_id` (`gender_id`),
-  CONSTRAINT `product_gender_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `product_gender_ibfk_2` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `product_size`
 --
 
@@ -302,7 +284,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220831015921'),
   ('20220831020010'),
   ('20220831020027'),
-  ('20220831020036'),
   ('20220831020050'),
   ('20220831020057'),
   ('20220831020108');
