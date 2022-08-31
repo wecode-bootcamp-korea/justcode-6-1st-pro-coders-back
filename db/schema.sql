@@ -78,8 +78,8 @@ CREATE TABLE `gender` (
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `images` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int DEFAULT NULL,
-  `source` varchar(3000) DEFAULT NULL,
+  `product_id` int NOT NULL,
+  `source` varchar(3000) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
