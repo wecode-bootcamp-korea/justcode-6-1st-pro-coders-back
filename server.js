@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const routes = require('./routes');
 const { captureRejectionSymbol } = require('events');
+const fs = require('fs');
 
 const app = express();
 app.use(cors());
@@ -14,5 +15,9 @@ app.use(routes);
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
+  const dir = './uploads';
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
   console.log(`server start : http://localhost:${PORT}/`);
 });
