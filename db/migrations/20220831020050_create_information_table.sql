@@ -4,6 +4,7 @@ CREATE TABLE information (
   product_id INT NOT NULL,
   contents VARCHAR(5000) NOT NULL,
   material VARCHAR(300) NOT NULL,
+  sizes VARCHAR(300) NOT NULL,
   manufacturer VARCHAR(300) NOT NULL, 
   country_of_manufacture VARCHAR(300) NOT NULL,
   caution VARCHAR(300) NOT NULL,
