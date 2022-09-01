@@ -18,17 +18,14 @@
 CREATE TABLE `cart` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `size_id` int NOT NULL,
+  `product_size_id` int NOT NULL,
   `count` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `product_id` (`product_id`),
-  KEY `size_id` (`size_id`),
+  KEY `product_size_id` (`product_size_id`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_size_id`) REFERENCES `product_size` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +38,7 @@ CREATE TABLE `category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +51,7 @@ CREATE TABLE `color` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +64,7 @@ CREATE TABLE `gender` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,7 +80,7 @@ CREATE TABLE `images` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +94,7 @@ CREATE TABLE `information` (
   `product_id` int NOT NULL,
   `contents` varchar(5000) NOT NULL,
   `material` varchar(300) NOT NULL,
+  `sizes` varchar(300) NOT NULL,
   `manufacturer` varchar(300) NOT NULL,
   `country_of_manufacture` varchar(300) NOT NULL,
   `caution` varchar(300) NOT NULL,
@@ -105,7 +103,7 @@ CREATE TABLE `information` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `information_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +116,7 @@ CREATE TABLE `keyword` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,7 +135,7 @@ CREATE TABLE `product_size` (
   KEY `size_id` (`size_id`),
   CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   CONSTRAINT `product_size_ibfk_2` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +153,6 @@ CREATE TABLE `products` (
   `discount_percent` decimal(7,0) DEFAULT NULL,
   `discounted_price` decimal(7,0) DEFAULT NULL,
   `color_id` int DEFAULT NULL,
-  `size_id` int DEFAULT NULL,
   `keyword_id` int DEFAULT NULL,
   `type_id` int DEFAULT NULL,
   `category_id` int DEFAULT NULL,
@@ -166,20 +163,18 @@ CREATE TABLE `products` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `product_code` (`product_code`),
   KEY `color_id` (`color_id`),
-  KEY `size_id` (`size_id`),
   KEY `keyword_id` (`keyword_id`),
   KEY `type_id` (`type_id`),
   KEY `category_id` (`category_id`),
   KEY `subcategory_id` (`subcategory_id`),
   KEY `gender_id` (`gender_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`color_id`) REFERENCES `color` (`id`),
-  CONSTRAINT `products_ibfk_2` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`),
-  CONSTRAINT `products_ibfk_3` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`),
-  CONSTRAINT `products_ibfk_4` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),
-  CONSTRAINT `products_ibfk_5` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  CONSTRAINT `products_ibfk_6` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`),
-  CONSTRAINT `products_ibfk_7` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `products_ibfk_2` FOREIGN KEY (`keyword_id`) REFERENCES `keyword` (`id`),
+  CONSTRAINT `products_ibfk_3` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),
+  CONSTRAINT `products_ibfk_4` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `products_ibfk_5` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`),
+  CONSTRAINT `products_ibfk_6` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +199,7 @@ CREATE TABLE `size` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -217,7 +212,7 @@ CREATE TABLE `subcategory` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +225,7 @@ CREATE TABLE `type` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +245,7 @@ CREATE TABLE `users` (
   `dormancy_prevention_period` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,5 +281,18 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220831020027'),
   ('20220831020050'),
   ('20220831020057'),
-  ('20220831020108');
+  ('20220831020108'),
+  ('20220901062437'),
+  ('20220901062451'),
+  ('20220901062457'),
+  ('20220901062511'),
+  ('20220901062519'),
+  ('20220901062526'),
+  ('20220901062541'),
+  ('20220901062547'),
+  ('20220901062557'),
+  ('20220901062603'),
+  ('20220901062613'),
+  ('20220901062619'),
+  ('20220901062627');
 UNLOCK TABLES;
