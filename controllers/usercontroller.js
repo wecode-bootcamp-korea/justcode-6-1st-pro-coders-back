@@ -2,7 +2,7 @@ const userService = require('../services/userService');
 
 // 사용자 회원가입
 const createUser = async (req, res) => {
-  const { email, nickname, password, phone_numbrt } = req.body;
+  const { email, nickname, password, phone_number } = req.body;
 
   try {
     await userService.createUser( email, nickname, password, phone_number );
