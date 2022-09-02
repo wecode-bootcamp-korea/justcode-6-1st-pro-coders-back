@@ -22,10 +22,27 @@ myDataSource
   });
 
 const getProductIdByText = async text => {
-  console.log(text);
-  const result = await myDataSource.query(
-    `SELECT * FROM postings WHERE postings.contents REGEXP '작은|성공'` //controller에서 데이터 trim(앞 뒤 공백 ), 복잡한 검색(키워드 두개 이상)에는 REGEXP 예약어 사용
+  console.log('text: ', text);
+  await myDataSource.query(
+    `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
   );
+  const result = await myDataSource.query(
+    `SELECT id FROM search_base WHERE 
+  keyword LIKE '%${text}%'
+  OR title LIKE '%${text}%' 
+  OR product_code LIKE '%${text}%' 
+  OR contents LIKE '%${text}%'
+  OR material LIKE '%${text}%'
+  OR gender LIKE '%${text}%'
+  OR category_name LIKE '%${text}%'
+  OR subcategory_name LIKE '%${text}%'`
+  );
+
+  // const result = await myDataSource.query(
+  //   `SELECT id, title FROM
+  //   products WHERE products.title REGEXP ?`,
+  //   [text]
+  // );
   console.log(result);
   return result;
 };

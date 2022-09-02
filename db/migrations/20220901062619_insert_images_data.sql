@@ -3,7 +3,7 @@ INSERT INTO
 images (product_id, source) 
 VALUES 
 (1, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S553/PR0UR22S553_03.jpg/dims/resizef/1024x1024/optimize'), 
-(1, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S553/PR0UR22S553_03.jpg/dims/resizef/1024x1024/optimize'), 
+(1, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S553/PR0UR22S553_D01.jpg/dims/resizef/1024x1024/optimize'), 
 (1, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S553/PR0UR22S553_D02.jpg/dims/resizef/1024x1024/optimize'), 
 (2, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S554/PR0UR22S554_03.jpg/dims/resizef/1024x1024/optimize'), 
 (2, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S554/PR0UR22S554_D01.jpg/dims/resizef/1024x1024/optimize'), 
