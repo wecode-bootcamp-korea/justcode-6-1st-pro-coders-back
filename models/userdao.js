@@ -4,7 +4,7 @@ const { myDataSource } = require('./typeorm-client');
 // 사용자 회원가입
 const createUser = async (email, nickname, password, phone_number) => {
   await myDataSource.query(
-    `INSERT INTO users(email, nickname, password) VALUES (?,?,?)`, [email, nickname, password, phone_number]
+    `INSERT INTO users(email, nickname, password, phone_number) VALUES (?,?,?)`, [email, nickname, password, phone_number]
   );
 }
 
