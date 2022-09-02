@@ -1,15 +1,16 @@
-const dataSource = require("./typeorm-client");
+const { myDataSource } = require('./typeorm-client');
+
 
 // 사용자 회원가입
-const createUser = async (email, nickname, password) => {
-  await dataSource.myDataSource.query(
-    `INSERT INTO users(email, nickname, password) VALUES (?,?,?)`, [email, nickname, password]
+const createUser = async (email, nickname, password, phone_number) => {
+  await myDataSource.query(
+    `INSERT INTO users(email, nickname, password) VALUES (?,?,?)`, [email, nickname, password, phone_number]
   );
 }
 
 // 이메일 중복체크
 const emailCheck = async (email) => {
-  const result = await dataSource.myDataSource.query(
+  const result = await myDataSource.query(
     `SELECT email FROM users WHERE email = ?`, [email]
   );
 
@@ -18,20 +19,27 @@ const emailCheck = async (email) => {
 
 // 이메일로 사용자 정보 가지고 오기
 const getUserByEmail = async(email) => {
-  const [user] = await dataSource.myDataSource.query(
+  const [user] = await myDataSource.query(
     `SELECT * FROM users WHERE email = ?`, [email]
   );
 
-  console.log('getUserByEmail : ', user);
+  return user;
+}
+
+// 사용자 아이디로 정보 가지고 오기
+const getUserById = async(id) => {
+  const [user] = await myDataSource.query(
+    `SELECT * FROM users WHERE id = ?`, [id]
+  );
 
   return user;
 }
 
 // 사용자 정보 수정
-const updateUser = async (nickname, stacks, profile_image) => {
-  await dataSource.myDataSource.query(
-    `UPDATE users SET nickname = ?, stack = ?, profile_image = ?`, [nickname, stacks, profile_image]
+const updateUser = async (nickname, stacks, profile_image, user_id) => {
+  await myDataSource.query(
+    `UPDATE users SET nickname = ?, stack = ?, profile_image = ? WHERE id = ?`, [nickname, stacks, profile_image, user_id]
   );
 }
 
-module.exports = {createUser, emailCheck, getUserByEmail, updateUser}
+module.exports = {createUser, emailCheck, getUserByEmail, getUserById, updateUser}

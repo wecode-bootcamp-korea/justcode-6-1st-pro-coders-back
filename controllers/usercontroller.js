@@ -2,7 +2,7 @@ const userService = require('../services/userService');
 
 // 사용자 회원가입
 const createUser = async (req, res) => {
-  const { email, nickname, password } = req.body;
+  const { email, nickname, password, phone_number } = req.body;
 
   await userService.createUser( email, nickname, password );
 
@@ -23,15 +23,6 @@ const emailCheck = async (req, res) => {
       return res.status(401).json({message: result});
   }
 
-}
-
-// 사용자 정보 가져오기
-const getUser = async (req, res) => {
-  const { email } = req.body;
-
-  const user = await userService.getUser(email);
-
-  return res.status(200).json({ nickname: user.nickname, stacks: user.stack, profile_image: user.profile_image });
 }
 
 // 사용자 로그인

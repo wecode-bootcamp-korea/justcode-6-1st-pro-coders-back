@@ -1,4 +1,4 @@
-const postService = require('../services/postService');
+const postService = require('../services/postservice');
 
 const getOnePost = async (req, res) => {
   const { post_id } = req.body;
