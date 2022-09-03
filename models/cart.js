@@ -22,20 +22,81 @@ myDataSource
 const getCartByUserId = async user_id => {
   const user_cart = await myDataSource.query(
     `
-  SELECT * FROM cart_data AS c WHERE user_id = ?
+  SELECT * FROM cart_data WHERE user_id = ?
   `,
     [user_id]
   );
-  return result;
+  let total_price = 0;
+  for (let i = 0; i < user_cart.length; i++) {
+    total_price += +user_cart[i].duped_price;
+  }
+  console.log(total_price);
+  let data = {};
+  data.total_count = user_cart.length;
+  data.total_price = total_price;
+  user_cart.unshift(data);
+  console.log(data);
+  return user_cart;
+};
+const getProductSizeIdByProductIdAndSizeId = async (product_id, size_id) => {
+  try {
+    let product_size_id_temp = await myDataSource.query(
+      `SELECT id FROM product_size WHERE (product_id = ? AND size_id = ?)`,
+      [product_id, size_id]
+    );
+    const product_size_id = Object.values(
+      JSON.parse(JSON.stringify(product_size_id_temp))
+    )[0].id;
+    return product_size_id;
+  } catch (err) {
+    let error = new Error('Error: Item Invalid');
+    error.code = 400;
+    throw error;
+  }
 };
 
-// const postCartByReqData = async (user_id, product_size_id, count) => {
-//   return result;
-// };
+const isUserVaild = async user_id => {
+  try {
+    const result = await myDataSource.query(
+      `SELECT id FROM users WHERE id = ?`,
+      [user_id]
+    );
+  } catch (err) {
+    let error = new Error('Error: User Invalid');
+    error.code = 400;
+    throw error;
+  }
+};
 
-// const deleteCartById = async cart_id => {
-//   return result;
-// };
+const isCartItemAlreadyExist = async (user_id, procduct_size_id) => {
+  const result = await myDataSource.query(
+    `SELECT id FROM cart WHERE (user_id = ? AND product_size_id = ?)`,
+    [user_id, procduct_size_id]
+  );
+  if (result) {
+    let error = new Error('Error: The Item is Added Already');
+    error.code = 400;
+    throw error;
+  }
+};
+
+const postCart = async (user_id, product_size_id, count) => {
+  try {
+    const result = await myDataSource.query(
+      `INSERT INTO cart (user_id, product_size_id, count) VALUES (?, ?, ?)`,
+      [user_id, product_size_id, count]
+    );
+    return result;
+  } catch (err) {
+    let error = new Error('Error: Item Add Fail');
+    error.code = 400;
+    throw error;
+  }
+};
+
+const deleteCartById = async cart_id => {
+  return result;
+};
 
 // const deleteCartByUserId = async user_id => {
 //   return result;
@@ -43,7 +104,10 @@ const getCartByUserId = async user_id => {
 
 module.exports = {
   getCartByUserId,
-  // postCartByReqData,
+  getProductSizeIdByProductIdAndSizeId,
+  isUserVaild,
+  isCartItemAlreadyExist,
+  postCart,
   // deleteCartById,
   // deleteCartByUserId,
 };
