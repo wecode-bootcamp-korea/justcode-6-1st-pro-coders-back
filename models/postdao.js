@@ -1,4 +1,4 @@
-const dataSource = require("./typeorm-client");
+const dataSource = require("./typeorm");
 
 // 게시글 상세페이지
 const getOnePost = async(post_id) => {

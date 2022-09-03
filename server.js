@@ -5,8 +5,11 @@ const express = require('express');
 const cors = require('cors');
 
 const routes = require('./routes');
+<<<<<<< Updated upstream
 const { captureRejectionSymbol } = require('events');
 const fs = require('fs');
+=======
+>>>>>>> Stashed changes
 
 const app = express();
 app.use(cors());
@@ -22,3 +25,4 @@ server.listen(PORT, () => {
   }
   console.log(`server start : http://localhost:${PORT}/`);
 });
+node

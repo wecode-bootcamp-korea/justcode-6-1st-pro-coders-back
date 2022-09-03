@@ -1,5 +1,5 @@
+const { myDataSource } = require('./typeorm');
 const { myDataSource } = require('./typeorm-client');
-
 
 // 사용자 회원가입
 const createUser = async (email, nickname, password, phone_number) => {
