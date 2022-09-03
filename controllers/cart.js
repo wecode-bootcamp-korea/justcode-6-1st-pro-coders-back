@@ -35,8 +35,11 @@ const addCart = async (req, res) => {
 };
 
 const deleteItem = async (req, res) => {
+  const { cart_id } = req.query;
   try {
-    const result = await cartService.deleteItem(cart_id, token);
+    const result = await cartService.deleteItem(
+      cart_id //, token
+    );
     console.log(result);
     res.status(200).json(result);
   } catch (error) {
@@ -59,6 +62,6 @@ const deleteItem = async (req, res) => {
 module.exports = {
   getUserCart,
   addCart,
-  // deleteItem,
+  deleteItem,
   // deleteAllItem,
 };

@@ -27,9 +27,14 @@ const addCart = async (
   return result;
 };
 
-const deleteItem = async (cart_id, token) => {
+const deleteItem = async (
+  cart_id //, token
+) => {
   //토큰 유효성 확인
-  const result = await cartDao.deleteCartById(cart_id);
+  let user_id = await cartDao.getUserIdByCartId(cart_id);
+  console.log(user_id);
+  await cartDao.deleteCartById(cart_id);
+  const result = await cartDao.getCartByUserId(user_id);
   return result;
 };
 
@@ -42,6 +47,6 @@ const deleteItem = async (cart_id, token) => {
 module.exports = {
   getUserCart,
   addCart,
-  // deleteItem,
+  deleteItem,
   // deleteAllItem,
 };

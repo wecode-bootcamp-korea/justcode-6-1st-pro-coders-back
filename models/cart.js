@@ -94,8 +94,31 @@ const postCart = async (user_id, product_size_id, count) => {
   }
 };
 
+const getUserIdByCartId = async cart_id => {
+  try {
+    const user_id_temp = await myDataSource.query(
+      `SELECT user_id FROM cart WHERE cart.id = ?`,
+      [cart_id]
+    );
+    const user_id = Object.values(JSON.parse(JSON.stringify(user_id_temp)))[0]
+      .user_id;
+    console.log('유저아이디: ', user_id);
+    return user_id;
+  } catch (err) {
+    let error = new Error('Error: Cart Item Invalid');
+    error.code = 400;
+    throw error;
+  }
+};
+
 const deleteCartById = async cart_id => {
-  return result;
+  try {
+    await myDataSource.query(`DELETE FROM cart WHERE cart.id = ?`, [cart_id]);
+  } catch (err) {
+    let error = new Error('Error: Item Delete Fail');
+    error.code = 400;
+    throw error;
+  }
 };
 
 // const deleteCartByUserId = async user_id => {
@@ -108,6 +131,7 @@ module.exports = {
   isUserVaild,
   isCartItemAlreadyExist,
   postCart,
-  // deleteCartById,
+  getUserIdByCartId,
+  deleteCartById,
   // deleteCartByUserId,
 };
