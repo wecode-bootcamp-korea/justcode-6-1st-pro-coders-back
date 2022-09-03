@@ -1,13 +1,15 @@
 const searchService = require('../services/search');
 
 const searchProduct = async (req, res) => {
-  const { query } = req.query;
-  const result = await searchService.searchProduct(query);
-  console.log(result);
-  if (!result[0]) {
-    res.status(500).json({ message: 'No search result' });
-  } else {
+  const { key } = req.query;
+  try {
+    const result = await searchService.searchProduct(key);
+    console.log(result);
     res.status(200).json({ result });
+  } catch (error) {
+    console.log(error);
+    res.status(error.code);
+    res.json({ message: 'No Search Result' });
   }
 };
 

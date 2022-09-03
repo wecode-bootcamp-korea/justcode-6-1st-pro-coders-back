@@ -1,7 +1,7 @@
 //const prismaClient = require('./prisma-client');
 
 const { text } = require('express');
-const { DataSource, Column } = require('typeorm');
+const { DataSource, Column, SimpleConsoleLogger } = require('typeorm');
 
 const myDataSource = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
@@ -22,7 +22,6 @@ myDataSource
   });
 
 const getProductIdByText = async text => {
-  console.log('text: ', text);
   await myDataSource.query(
     `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
   );
@@ -37,14 +36,28 @@ const getProductIdByText = async text => {
   OR category_name LIKE '%${text}%'
   OR subcategory_name LIKE '%${text}%'`
   );
+  if (!result[0]) {
+    let error = new Error('Error: no search result');
+    error.code = 204;
+    error.message = 'no search result';
+    throw error;
+  }
+  let resultObj = Object.values(JSON.parse(JSON.stringify(result)));
+  let resultArr = [];
+  for (let i of resultObj) {
+    resultArr.push(i.id);
+  }
 
-  // const result = await myDataSource.query(
-  //   `SELECT id, title FROM
-  //   products WHERE products.title REGEXP ?`,
-  //   [text]
-  // );
-  console.log(result);
-  return result;
+  const resultData = Object.values(
+    JSON.parse(
+      JSON.stringify(
+        await myDataSource.query(
+          `SELECT * FROM product_detail WHERE id IN (${resultArr})`
+        )
+      )
+    )
+  );
+  return resultData;
 };
 
 module.exports = { getProductIdByText };
