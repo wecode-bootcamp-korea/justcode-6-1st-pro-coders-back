@@ -121,9 +121,37 @@ const deleteCartById = async cart_id => {
   }
 };
 
-// const deleteCartByUserId = async user_id => {
-//   return result;
-// };
+const getCartIdByUserId = async user_id => {
+  let result = await myDataSource.query(
+    `SELECT id FROM cart WHERE cart.user_id = ?`,
+    [user_id]
+  );
+  console.log(result);
+  let resultObj = Object.values(JSON.parse(JSON.stringify(result)));
+  let resultArr = [];
+  for (let i of resultObj) {
+    resultArr.push(i.id);
+  }
+  if (!resultArr[0]) {
+    let error = new Error('Error: No Item in Cart');
+    error.code = 400;
+    throw error;
+  }
+  return resultArr;
+};
+
+const deleteCartByids = async cart_id_arr => {
+  try {
+    await myDataSource.query(`DELETE FROM cart WHERE cart.id in (?)`, [
+      cart_id_arr,
+    ]);
+    return;
+  } catch (err) {
+    let error = new Error('Error: Item Delete Fail');
+    error.code = 400;
+    throw error;
+  }
+};
 
 module.exports = {
   getCartByUserId,
@@ -133,5 +161,6 @@ module.exports = {
   postCart,
   getUserIdByCartId,
   deleteCartById,
-  // deleteCartByUserId,
+  getCartIdByUserId,
+  deleteCartByids,
 };

@@ -48,20 +48,23 @@ const deleteItem = async (req, res) => {
   }
 };
 
-// const deleteAllItem = async (req, res) => {
-//   try {
-//     const result = await cartService.deleteAllItem(user_id, token);
-//     console.log(result);
-//     res.status(200).json(result);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(error.code).json(error.message);
-//   }
-// };
+const deleteAllItem = async (req, res) => {
+  const { user_id } = req.query;
+  try {
+    const result = await cartService.deleteAllItem(
+      user_id //, token
+    );
+    console.log(result);
+    res.status(200).json({ massege: 'All Item Removed' });
+  } catch (error) {
+    console.log(error);
+    res.status(error.code).json(error.message);
+  }
+};
 
 module.exports = {
   getUserCart,
   addCart,
   deleteItem,
-  // deleteAllItem,
+  deleteAllItem,
 };

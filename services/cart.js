@@ -38,15 +38,19 @@ const deleteItem = async (
   return result;
 };
 
-// const deleteAllItem = async (user_id, token) => {
-//   //토큰 유효성 확인
-//   const result = await cartDao.deleteCartByUserId(user_id);
-//   return result;
-// };
+const deleteAllItem = async (
+  user_id //, token
+) => {
+  //토큰 유효성 확인
+  const cart_id_arr = await cartDao.getCartIdByUserId(user_id);
+  console.log('in에 들어갈배열 ', cart_id_arr);
+  const result = await cartDao.deleteCartByids(cart_id_arr);
+  return result;
+};
 
 module.exports = {
   getUserCart,
   addCart,
   deleteItem,
-  // deleteAllItem,
+  deleteAllItem,
 };
