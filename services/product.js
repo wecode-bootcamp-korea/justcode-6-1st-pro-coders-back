@@ -1,11 +1,23 @@
-// const mongoose = require('mongoose');
-// const productDao = require('../models/product');
+const mongoose = require('mongoose');
+const productDao = require('../models/product');
 
-// const deleteAllItem = async ()=>{
-//   const result = await productDao.;
-//   return result;
-// };
+const getProductByType = async type => {
+  const result = await productDao.getProductByType(type);
+  return result;
+};
 
-// module.exports ={
+const getProductByCategory = async category => {
+  const result = await productDao.getProductByCategory(category);
+  return result;
+};
 
-// };
+const getProductDetail = async product_id => {
+  const result = await productDao.getProductDetailById(product_id);
+  return result;
+};
+
+module.exports = {
+  getProductByType,
+  getProductByCategory,
+  getProductDetail,
+};
