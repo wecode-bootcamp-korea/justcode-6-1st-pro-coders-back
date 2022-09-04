@@ -9,5 +9,6 @@ VALUES
 ('윙'), ('KS'), ('모피어스 R'), ('에어 플로우 인솔'), ('맞춤형 성형 인솔')
 
 -- migrate:down
-
-TRUNCATE subcategory
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE subcategory;
+SET FOREIGN_KEY_CHECKS = 1;

@@ -6,5 +6,6 @@ VALUES
 ('[풋살화]') 
 
 -- migrate:down
-
-TRUNCATE keyword
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE keyword;
+SET FOREIGN_KEY_CHECKS = 1;

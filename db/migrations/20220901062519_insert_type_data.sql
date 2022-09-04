@@ -5,5 +5,6 @@ VALUES
 ('SHOES'), ('WEAR'), ('OTHERS')
 
 -- migrate:down
-
-TRUNCATE type
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE type;
+SET FOREIGN_KEY_CHECKS = 1;

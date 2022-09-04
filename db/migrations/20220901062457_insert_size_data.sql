@@ -7,5 +7,6 @@ VALUES
 ('FREE')
 
 -- migrate:down
-
-TRUNCATE size
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE size;
+SET FOREIGN_KEY_CHECKS = 1;

@@ -43,5 +43,6 @@ VALUES
 (36, 11, 28), (37, 11, 4)
 
 -- migrate:down
-
-TRUNCATE product_size
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE product_size;
+SET FOREIGN_KEY_CHECKS = 1;

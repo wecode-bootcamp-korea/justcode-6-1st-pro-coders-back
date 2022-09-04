@@ -55,7 +55,7 @@ const getProductIdByText = async text => {
     JSON.parse(
       JSON.stringify(
         await myDataSource.query(
-          `SELECT * FROM product_detail WHERE id IN (${resultArr})`
+          `SELECT * FROM product_summary WHERE id IN (${resultArr})`
         )
       )
     )

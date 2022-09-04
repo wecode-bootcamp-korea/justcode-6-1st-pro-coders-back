@@ -41,5 +41,6 @@ VALUES
 ('PS0ZZ19S006', '프로스펙스 맞춤형 성형 인솔 (Customized Insole)', 35000, 1, 15, 29750, 2, 4, 1, 8, 25, 1, 'https://img.prospecs.com/prod/PS0ZZ19/PS0ZZ19S006/PS0ZZ19S006_01.jpg/dims/resizef/1024x1024/optimize', 'https://img.prospecs.com/prod/PS0ZZ19/PS0ZZ19S006/PS0ZZ19S006_02.jpg/dims/resizef/1024x1024/optimize')
 
 -- migrate:down
-
-TRUNCATE products
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE products;
+SET FOREIGN_KEY_CHECKS = 1;

@@ -10,19 +10,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Temporary view structure for view `all_images_by_product`
---
-
-SET @saved_cs_client     = @@character_set_client;
-/*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `all_images_by_product` AS SELECT
- 1 AS `id`,
- 1 AS `main`,
- 1 AS `sub`,
- 1 AS `more`*/;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `cart`
 --
 
@@ -96,6 +83,19 @@ CREATE TABLE `gender` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `image_arr_by_product`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `image_arr_by_product` AS SELECT
+ 1 AS `id`,
+ 1 AS `main`,
+ 1 AS `sub`,
+ 1 AS `more`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `images`
@@ -219,12 +219,15 @@ SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `product_summary` AS SELECT
  1 AS `id`,
+ 1 AS `type`,
+ 1 AS `category`,
  1 AS `keyword`,
  1 AS `title`,
  1 AS `is_discounted`,
  1 AS `discount_percent`,
  1 AS `discounted_price`,
- 1 AS `image`,
+ 1 AS `main_image`,
+ 1 AS `sub_image`,
  1 AS `gender`*/;
 SET character_set_client = @saved_cs_client;
 
@@ -311,12 +314,12 @@ CREATE TABLE `size` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Temporary view structure for view `sizes_by_product`
+-- Temporary view structure for view `size_by_product`
 --
 
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
-/*!50001 CREATE VIEW `sizes_by_product` AS SELECT
+/*!50001 CREATE VIEW `size_by_product` AS SELECT
  1 AS `id`,
  1 AS `size`*/;
 SET character_set_client = @saved_cs_client;
@@ -406,24 +409,6 @@ CREATE TABLE `users` (
 --
 
 --
--- Final view structure for view `all_images_by_product`
---
-
-/*!50001 DROP VIEW IF EXISTS `all_images_by_product`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8mb4 */;
-/*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `all_images_by_product` AS select `p`.`id` AS `id`,`p`.`main_image` AS `main`,`p`.`sub_image` AS `sub`,json_arrayagg(`i`.`source`) AS `more` from (`products` `p` join `images` `i` on((`p`.`id` = `i`.`product_id`))) group by `i`.`product_id` */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `cart_data`
 --
 
@@ -433,10 +418,28 @@ CREATE TABLE `users` (
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `cart_data` AS select `c`.`id` AS `cart_id`,`c`.`user_id` AS `user_id`,`p`.`title` AS `title`,`p`.`color` AS `color`,`p`.`size` AS `size`,`c`.`count` AS `count`,`p`.`price` AS `price`,(`p`.`price` * `c`.`count`) AS `duped_price` from (`cart` `c` left join `product_data_for_cart` `p` on((`c`.`product_size_id` = `p`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `image_arr_by_product`
+--
+
+/*!50001 DROP VIEW IF EXISTS `image_arr_by_product`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `image_arr_by_product` AS select `p`.`id` AS `id`,`p`.`main_image` AS `main`,`p`.`sub_image` AS `sub`,json_arrayagg(`i`.`source`) AS `more` from (`products` `p` join `images` `i` on((`p`.`id` = `i`.`product_id`))) group by `i`.`product_id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -451,7 +454,7 @@ CREATE TABLE `users` (
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `product_data_for_cart` AS select `ps`.`id` AS `id`,`p`.`title` AS `title`,`c`.`name` AS `color`,`s`.`name` AS `size`,`p`.`discounted_price` AS `price` from (((`product_size` `ps` left join `products` `p` on((`ps`.`product_id` = `p`.`id`))) left join `size` `s` on((`ps`.`size_id` = `s`.`id`))) left join `color` `c` on((`p`.`color_id` = `c`.`id`))) */;
@@ -469,7 +472,7 @@ CREATE TABLE `users` (
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `product_detail` AS select `products`.`id` AS `id`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`product_code` AS `product_code`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price` AS `discounted_price`,`products`.`main_image` AS `main_image`,`products`.`sub_image` AS `sub_image`,`information`.`contents` AS `contents`,`information`.`material` AS `material`,`information`.`sizes` AS `sizes`,`information`.`manufacturer` AS `manufacturer`,`information`.`country_of_manufacture` AS `country_of_manufacture`,`information`.`caution` AS `caution`,`information`.`guarantee` AS `guarantee`,`information`.`service_information` AS `service_information`,`gender`.`name` AS `gender`,`subcategory`.`name` AS `subcategory_items`,json_arrayagg(`images`.`source`) AS `images` from (((((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `information` on((`products`.`id` = `information`.`product_id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) left join `subcategory` on((`products`.`subcategory_id` = `subcategory`.`id`))) left join `images` on((`products`.`id` = `images`.`product_id`))) group by `products`.`id` */;
@@ -487,10 +490,10 @@ CREATE TABLE `users` (
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `product_summary` AS select `products`.`id` AS `id`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price` AS `discounted_price`,`products`.`main_image` AS `image`,`gender`.`name` AS `gender` from ((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) */;
+/*!50001 VIEW `product_summary` AS select `products`.`id` AS `id`,`type`.`name` AS `type`,`category`.`name` AS `category`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price` AS `discounted_price`,`products`.`main_image` AS `main_image`,`products`.`sub_image` AS `sub_image`,`gender`.`name` AS `gender` from ((((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) left join `type` on((`products`.`type_id` = `type`.`id`))) left join `category` on((`products`.`category_id` = `category`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -505,7 +508,7 @@ CREATE TABLE `users` (
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `search_base` AS select `p`.`id` AS `id`,`k`.`name` AS `keyword`,`p`.`title` AS `title`,`p`.`product_code` AS `product_code`,`i`.`contents` AS `contents`,`i`.`material` AS `material`,`g`.`name` AS `gender`,`c`.`name` AS `category_name`,`s`.`name` AS `subcategory_name` from (((((`products` `p` left join `keyword` `k` on((`p`.`keyword_id` = `k`.`id`))) left join `information` `i` on((`p`.`id` = `i`.`product_id`))) left join `gender` `g` on((`p`.`gender_id` = `g`.`id`))) left join `category` `c` on((`p`.`category_id` = `c`.`id`))) left join `subcategory` `s` on((`p`.`subcategory_id` = `s`.`id`))) group by `p`.`id`,`p`.`title` */;
@@ -514,19 +517,19 @@ CREATE TABLE `users` (
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `sizes_by_product`
+-- Final view structure for view `size_by_product`
 --
 
-/*!50001 DROP VIEW IF EXISTS `sizes_by_product`*/;
+/*!50001 DROP VIEW IF EXISTS `size_by_product`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
 /*!50001 SET character_set_client      = utf8mb4 */;
 /*!50001 SET character_set_results     = utf8mb4 */;
-/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `sizes_by_product` AS select `products`.`id` AS `id`,`size`.`name` AS `size` from ((`products` left join `product_size` on((`products`.`id` = `product_size`.`product_id`))) left join `size` on((`product_size`.`size_id` = `size`.`id`))) */;
+/*!50001 VIEW `size_by_product` AS select `products`.`id` AS `id`,`size`.`name` AS `size` from ((`products` left join `product_size` on((`products`.`id` = `product_size`.`product_id`))) left join `size` on((`product_size`.`size_id` = `size`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -577,5 +580,12 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20220903064000'),
   ('20220903064009'),
   ('20220903064024'),
-  ('20220903064029');
+  ('20220903064029'),
+  ('20220904063333'),
+  ('20220904063542'),
+  ('20220904063652'),
+  ('20220904063849'),
+  ('20220904063943'),
+  ('20220904064022'),
+  ('20220904064140');
 UNLOCK TABLES;
