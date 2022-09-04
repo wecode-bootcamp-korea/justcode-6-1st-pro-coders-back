@@ -14,10 +14,17 @@ myDataSource
   .initialize()
   .then(() => {
     console.log('Data Source has been initialized!');
+    removeOnlyFullGroupBy();
   })
   .catch(() => {
     console.log('Date source initializing fail');
   });
+
+const removeOnlyFullGroupBy = async () => {
+  await myDataSource.query(
+    `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
+  );
+};
 
 const getCartByUserId = async user_id => {
   const user_cart = await myDataSource.query(
