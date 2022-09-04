@@ -1,10 +1,9 @@
-const productService = require('../services/product');
+// const productService = require('../services/product');
 
+// const deleteAllItem = async ()=>{
+//   const result = await productDao.;
+//   return result;
+// };
 
-const deleteAllItem = async ()=>{
-  const result = await productDao.;
-  return result;
-};
-
-module.exports = {
-};
+// module.exports = {
+// };

@@ -41,9 +41,13 @@ const getCartByUserId = async user_id => {
   let data = {};
   data.total_count = user_cart.length;
   data.total_price = total_price;
-  user_cart.unshift(data);
-  console.log(data);
-  return user_cart;
+  console.log('data예시:', data);
+  console.log('user_cart예시:', user_cart);
+  let result = {};
+  result.result = data;
+  result.cartList = user_cart;
+  console.log('과연', result);
+  return result;
 };
 const getProductSizeIdByProductIdAndSizeId = async (product_id, size_id) => {
   try {
