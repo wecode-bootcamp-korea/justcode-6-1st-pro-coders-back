@@ -1,5 +1,4 @@
-const { text } = require('express');
-const { DataSource, Column, SimpleConsoleLogger } = require('typeorm');
+const { DataSource } = require('typeorm');
 
 const myDataSource = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
