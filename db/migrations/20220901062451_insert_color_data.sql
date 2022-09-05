@@ -7,5 +7,6 @@ VALUES
 ('WHITE'), ('YELLOW')
 
 -- migrate:down
-
-TRUNCATE color
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE color;
+SET FOREIGN_KEY_CHECKS = 1;

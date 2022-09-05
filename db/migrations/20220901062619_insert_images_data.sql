@@ -143,7 +143,30 @@ VALUES
  (36, 'https://img.prospecs.com/prod/PS0ZZ20/PS0ZZ20S003/PS0ZZ20S003_D01.jpg/dims/resizef/1024x1024/optimize'), 
  (37, 'https://img.prospecs.com/prod/PS0ZZ19/PS0ZZ19S006/PS0ZZ19S006_03.jpg/dims/resizef/1024x1024/optimize'), 
  (37, 'https://img.prospecs.com/prod/PS0ZZ19/PS0ZZ19S006/PS0ZZ19S006_04.jpg/dims/resizef/1024x1024/optimize'), 
- (37, 'https://img.prospecs.com/prod/PS0ZZ19/PS0ZZ19S006/PS0ZZ19S006_D01.jpg/dims/resizef/1024x1024/optimize')
+ (37, 'https://img.prospecs.com/prod/PS0ZZ19/PS0ZZ19S006/PS0ZZ19S006_D01.jpg/dims/resizef/1024x1024/optimize'),
+ 
+ 
+ (38, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S211/PR0UR22S211_03.jpg/dims/resizef/1024x1024/optimize'), 
+ (38, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S211/PR0UR22S211_04.jpg/dims/resizef/1024x1024/optimize'),
+ (38, 'https://img.prospecs.com/prod/PR0UR22/PR0UR22S211/PR0UR22S211_D01.jpg/dims/resizef/1024x1024/optimize'), 
+ (39, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S331/PW0UW22S331_03.jpg/dims/resizef/1024x1024/optimize'),
+ (39, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S331/PW0UW22S331_D01.jpg/dims/resizef/1024x1024/optimize'),
+ (39, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S331/PW0UW22S331_D02.jpg/dims/resizef/1024x1024/optimize'), 
+ (40, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S552/PW0UW22S552_03.jpg/dims/resizef/1024x1024/optimize'), 
+ (40, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S552/PW0UW22S552_D01.jpg/dims/resizef/1024x1024/optimize'),
+ (40, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S552/PW0UW22S552_D02.jpg/dims/resizef/1024x1024/optimize'), 
+ (41, 'https://img.prospecs.com/prod/PW0WW22/PW0WW22S303/PW0WW22S303_03.jpg/dims/resizef/1024x1024/optimize'), 
+ (41, 'https://img.prospecs.com/prod/PW0WW22/PW0WW22S303/PW0WW22S303_D01.jpg/dims/resizef/1024x1024/optimize'),
+ (41, 'https://img.prospecs.com/prod/PW0WW22/PW0WW22S303/PW0WW22S303_D02.jpg/dims/resizef/1024x1024/optimize'),
+ (42, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S344/PW0UW22S344_03.jpg/dims/resizef/1024x1024/optimize'), 
+ (42, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S344/PW0UW22S344_D01.jpg/dims/resizef/1024x1024/optimize'), 
+ (42, 'https://img.prospecs.com/prod/PW0UW22/PW0UW22S344/PW0UW22S344_D02.jpg/dims/resizef/1024x1024/optimize'), 
+ (43, 'https://img.prospecs.com/prod/PS0MP22/PS0MP22S551/PS0MP22S551_03.jpg/dims/resizef/1024x1024/optimize'), 
+ (43, 'https://img.prospecs.com/prod/PS0MP22/PS0MP22S551/PS0MP22S551_D01.jpg/dims/resizef/1024x1024/optimize'), 
+ (43, 'https://img.prospecs.com/prod/PS0MP22/PS0MP22S551/PS0MP22S551_D02.jpg/dims/resizef/1024x1024/optimize'), 
+ (44, 'https://img.prospecs.com/prod/PS0WP22/PS0WP22S412/PS0WP22S412_03.jpg/dims/resizef/1024x1024/optimize'), 
+ (44, 'https://img.prospecs.com/prod/PS0WP22/PS0WP22S412/PS0WP22S412_D01.jpg/dims/resizef/1024x1024/optimize'),
+ (44, 'https://img.prospecs.com/prod/PS0WP22/PS0WP22S412/PS0WP22S412_D02.jpg/dims/resizef/1024x1024/optimize')
 
 -- migrate:down
 

@@ -1,7 +1,4 @@
-//const prismaClient = require('./prisma-client');
-
-const { text } = require('express');
-const { DataSource, Column, SimpleConsoleLogger } = require('typeorm');
+const { DataSource } = require('typeorm');
 
 const myDataSource = new DataSource({
   type: process.env.TYPEORM_CONNECTION,
@@ -16,15 +13,19 @@ myDataSource
   .initialize()
   .then(() => {
     console.log('Data Source has been initialized!');
+    removeOnlyFullGroupBy();
   })
   .catch(() => {
     console.log('Date source initializing fail');
   });
 
-const getProductIdByText = async text => {
+const removeOnlyFullGroupBy = async () => {
   await myDataSource.query(
     `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
   );
+};
+
+const getProductIdByText = async text => {
   const result = await myDataSource.query(
     `SELECT id FROM search_base WHERE 
   keyword LIKE '%${text}%'
@@ -39,7 +40,6 @@ const getProductIdByText = async text => {
   if (!result[0]) {
     let error = new Error('Error: no search result');
     error.code = 204;
-    error.message = 'no search result';
     throw error;
   }
   let resultObj = Object.values(JSON.parse(JSON.stringify(result)));
@@ -52,7 +52,7 @@ const getProductIdByText = async text => {
     JSON.parse(
       JSON.stringify(
         await myDataSource.query(
-          `SELECT * FROM product_detail WHERE id IN (${resultArr})`
+          `SELECT * FROM product_summary WHERE id IN (${resultArr})`
         )
       )
     )
