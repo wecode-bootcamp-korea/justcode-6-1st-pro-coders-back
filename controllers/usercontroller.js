@@ -39,13 +39,11 @@ const getUser = async (req, res) => {
   try {
     const user = await userService.getUser(token);
 
-    return res
-      .status(200)
-      .json({
-        nickname: user.nickname,
-        stacks: user.stack,
-        profile_image: user.profile_image,
-      });
+    return res.status(200).json({
+      nickname: user.nickname,
+      stacks: user.stack,
+      profile_image: user.profile_image,
+    });
   } catch (error) {
     res.status(err.status || 500).json(err.message);
   }
@@ -64,7 +62,11 @@ const userLogin = async (req, res) => {
       case 'success':
         return res
           .status(200)
-          .json({ message: 'login success', token: result.token });
+          .json({
+            message: 'login success',
+            token: result.token,
+            user_id: result.user_id,
+          });
     }
   } catch (err) {
     res.status(err.status || 500).json(err.message);

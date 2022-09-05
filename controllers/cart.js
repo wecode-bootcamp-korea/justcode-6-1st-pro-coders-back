@@ -1,12 +1,10 @@
 const cartService = require('../services/cart');
 
 const getUserCart = async (req, res) => {
-  //const token = req.get('authorization');
+  const token = req.get('authorization');
   const { user_id } = req.query;
   try {
-    const result = await cartService.getUserCart(
-      user_id //, token
-    );
+    const result = await cartService.getUserCart(token);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
