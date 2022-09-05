@@ -110,7 +110,7 @@ CREATE TABLE `images` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `information` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `information_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,11 +174,14 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `keyword`,
  1 AS `title`,
  1 AS `product_code`,
+ 1 AS `price`,
  1 AS `is_discounted`,
  1 AS `discount_percent`,
  1 AS `discounted_price`,
  1 AS `main_image`,
  1 AS `sub_image`,
+ 1 AS `back_image`,
+ 1 AS `high_image`,
  1 AS `contents`,
  1 AS `material`,
  1 AS `sizes`,
@@ -208,7 +211,7 @@ CREATE TABLE `product_size` (
   KEY `size_id` (`size_id`),
   CONSTRAINT `product_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   CONSTRAINT `product_size_ibfk_2` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,6 +226,7 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `category`,
  1 AS `keyword`,
  1 AS `title`,
+ 1 AS `price`,
  1 AS `is_discounted`,
  1 AS `discount_percent`,
  1 AS `discounted_price`,
@@ -242,9 +246,11 @@ CREATE TABLE `products` (
   `product_code` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
   `price` decimal(7,0) NOT NULL,
+  `price_c` varchar(100) DEFAULT NULL,
   `is_discounted` tinyint NOT NULL,
   `discount_percent` decimal(7,0) DEFAULT NULL,
   `discounted_price` decimal(7,0) DEFAULT NULL,
+  `discounted_price_c` varchar(100) DEFAULT NULL,
   `color_id` int DEFAULT NULL,
   `keyword_id` int DEFAULT NULL,
   `type_id` int DEFAULT NULL,
@@ -253,6 +259,8 @@ CREATE TABLE `products` (
   `gender_id` int DEFAULT NULL,
   `main_image` varchar(3000) DEFAULT NULL,
   `sub_image` varchar(3000) DEFAULT NULL,
+  `back_image` varchar(3000) DEFAULT NULL,
+  `high_image` varchar(3000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `product_code` (`product_code`),
   KEY `color_id` (`color_id`),
@@ -267,7 +275,7 @@ CREATE TABLE `products` (
   CONSTRAINT `products_ibfk_4` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   CONSTRAINT `products_ibfk_5` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`),
   CONSTRAINT `products_ibfk_6` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +376,7 @@ CREATE TABLE `subcategory` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,7 +483,7 @@ CREATE TABLE `users` (
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `product_detail` AS select `products`.`id` AS `id`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`product_code` AS `product_code`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price` AS `discounted_price`,`products`.`main_image` AS `main_image`,`products`.`sub_image` AS `sub_image`,`information`.`contents` AS `contents`,`information`.`material` AS `material`,`information`.`sizes` AS `sizes`,`information`.`manufacturer` AS `manufacturer`,`information`.`country_of_manufacture` AS `country_of_manufacture`,`information`.`caution` AS `caution`,`information`.`guarantee` AS `guarantee`,`information`.`service_information` AS `service_information`,`gender`.`name` AS `gender`,`subcategory`.`name` AS `subcategory_items`,json_arrayagg(`images`.`source`) AS `images` from (((((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `information` on((`products`.`id` = `information`.`product_id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) left join `subcategory` on((`products`.`subcategory_id` = `subcategory`.`id`))) left join `images` on((`products`.`id` = `images`.`product_id`))) group by `products`.`id` */;
+/*!50001 VIEW `product_detail` AS select `products`.`id` AS `id`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`product_code` AS `product_code`,`products`.`price_c` AS `price`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price_c` AS `discounted_price`,`products`.`main_image` AS `main_image`,`products`.`sub_image` AS `sub_image`,`products`.`back_image` AS `back_image`,`products`.`high_image` AS `high_image`,`information`.`contents` AS `contents`,`information`.`material` AS `material`,`information`.`sizes` AS `sizes`,`information`.`manufacturer` AS `manufacturer`,`information`.`country_of_manufacture` AS `country_of_manufacture`,`information`.`caution` AS `caution`,`information`.`guarantee` AS `guarantee`,`information`.`service_information` AS `service_information`,`gender`.`name` AS `gender`,`subcategory`.`name` AS `subcategory_items`,json_arrayagg(`images`.`source`) AS `images` from (((((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `information` on((`products`.`id` = `information`.`product_id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) left join `subcategory` on((`products`.`subcategory_id` = `subcategory`.`id`))) left join `images` on((`products`.`id` = `images`.`product_id`))) group by `products`.`id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -493,7 +501,7 @@ CREATE TABLE `users` (
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `product_summary` AS select `products`.`id` AS `id`,`type`.`name` AS `type`,`category`.`name` AS `category`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price` AS `discounted_price`,`products`.`main_image` AS `main_image`,`products`.`sub_image` AS `sub_image`,`gender`.`name` AS `gender` from ((((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) left join `type` on((`products`.`type_id` = `type`.`id`))) left join `category` on((`products`.`category_id` = `category`.`id`))) */;
+/*!50001 VIEW `product_summary` AS select `products`.`id` AS `id`,`type`.`name` AS `type`,`category`.`name` AS `category`,`keyword`.`name` AS `keyword`,`products`.`title` AS `title`,`products`.`price_c` AS `price`,`products`.`is_discounted` AS `is_discounted`,`products`.`discount_percent` AS `discount_percent`,`products`.`discounted_price_c` AS `discounted_price`,`products`.`main_image` AS `main_image`,`products`.`sub_image` AS `sub_image`,`gender`.`name` AS `gender` from ((((`products` left join `keyword` on((`products`.`keyword_id` = `keyword`.`id`))) left join `gender` on((`products`.`gender_id` = `gender`.`id`))) left join `type` on((`products`.`type_id` = `type`.`id`))) left join `category` on((`products`.`category_id` = `category`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

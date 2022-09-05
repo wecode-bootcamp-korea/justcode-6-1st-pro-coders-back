@@ -8,9 +8,9 @@ const searchProduct = async (req, res) => {
   }
 
   try {
-    const result = await searchService.searchProduct(key);
+    const result = await searchService.searchProduct(key.trim());
     console.log(result);
-    res.status(200).json({ result });
+    res.status(200).json(result);
   } catch (error) {
     console.log(error);
     res.status(error.code).json(error.message);

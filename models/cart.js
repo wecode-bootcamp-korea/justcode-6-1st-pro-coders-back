@@ -36,16 +36,12 @@ const getCartByUserId = async user_id => {
   for (let i = 0; i < user_cart.length; i++) {
     total_price += +user_cart[i].duped_price;
   }
-  console.log(total_price);
   let data = {};
   data.total_count = user_cart.length;
   data.total_price = total_price;
-  console.log('data예시:', data);
-  console.log('user_cart예시:', user_cart);
   let result = {};
   result.result = data;
   result.cartList = user_cart;
-  console.log('과연', result);
   return result;
 };
 const getProductSizeIdByProductIdAndSizeId = async (product_id, size_id) => {
@@ -83,7 +79,7 @@ const isCartItemAlreadyExist = async (user_id, procduct_size_id) => {
     `SELECT id FROM cart WHERE (user_id = ? AND product_size_id = ?)`,
     [user_id, procduct_size_id]
   );
-  if (result) {
+  if (result[0]) {
     let error = new Error('Error: The Item is Added Already');
     error.code = 400;
     throw error;
@@ -112,7 +108,6 @@ const getUserIdByCartId = async cart_id => {
     );
     const user_id = Object.values(JSON.parse(JSON.stringify(user_id_temp)))[0]
       .user_id;
-    console.log('유저아이디: ', user_id);
     return user_id;
   } catch (err) {
     let error = new Error('Error: Cart Item Invalid');
@@ -136,7 +131,6 @@ const getCartIdByUserId = async user_id => {
     `SELECT id FROM cart WHERE cart.user_id = ?`,
     [user_id]
   );
-  console.log(result);
   let resultObj = Object.values(JSON.parse(JSON.stringify(result)));
   let resultArr = [];
   for (let i of resultObj) {

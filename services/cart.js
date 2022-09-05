@@ -32,7 +32,6 @@ const deleteItem = async (
 ) => {
   //토큰 유효성 확인
   let user_id = await cartDao.getUserIdByCartId(cart_id);
-  console.log(user_id);
   await cartDao.deleteCartById(cart_id);
   const result = await cartDao.getCartByUserId(user_id);
   return result;
@@ -43,7 +42,6 @@ const deleteAllItem = async (
 ) => {
   //토큰 유효성 확인
   const cart_id_arr = await cartDao.getCartIdByUserId(user_id);
-  console.log('in에 들어갈배열 ', cart_id_arr);
   const result = await cartDao.deleteCartByids(cart_id_arr);
   return result;
 };

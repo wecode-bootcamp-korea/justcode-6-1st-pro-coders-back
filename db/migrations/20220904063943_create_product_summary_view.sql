@@ -4,17 +4,18 @@ SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
 CREATE VIEW product_summary AS 
 SELECT 
-products.id as id,
+products.id AS id,
 type.name AS type,
 category.name AS category,
-keyword.name as keyword,
-products.title as title,
-products.is_discounted as is_discounted,
-products.discount_percent as discount_percent,
-products.discounted_price as discounted_price,
-products.main_image as main_image,
-products.sub_image as sub_image,
-gender.name as gender
+keyword.name AS keyword,
+products.title AS title,
+products.price_c AS price,
+products.is_discounted AS is_discounted,
+products.discount_percent AS discount_percent,
+products.discounted_price_c AS discounted_price,
+products.main_image AS main_image,
+products.sub_image AS sub_image,
+gender.name AS gender
 FROM
 products
 LEFT JOIN keyword ON products.keyword_id = keyword.id 
