@@ -58,7 +58,7 @@ const userLogin = async (req, res) => {
         return res.status(401).json({message: "login fail"});
       
       case "success":
-        return res.status(200).json({message: "login success", tokon: result.token});
+        return res.status(200).json({message: "login success", token: result.token});
         
     }
   } catch (err) {
