@@ -3,13 +3,11 @@ const router = express.Router();
 
 const userrouter = require('../routes/userrouter');
 
-const userRouter = require('./user');
 const searchRouter = require('./search');
 const cartRouter = require('./cart');
 const productRouter = require('./product');
 const storeRouter = require('./store');
 
-router.use('/users', userRouter);
 router.use('/search', searchRouter);
 router.use('/cart', cartRouter);
 router.use('/products', productRouter);

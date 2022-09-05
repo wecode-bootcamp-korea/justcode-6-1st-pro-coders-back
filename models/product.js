@@ -1,13 +1,9 @@
 const { myDataSource } = require('./typeorm-client');
 
-const removeOnlyFullGroupBy = async () => {
+const getProductByType = async type => {
   await myDataSource.query(
     `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
   );
-};
-
-const getProductByType = async type => {
-  removeOnlyFullGroupBy();
   const result = await myDataSource.query(
     `SELECT * FROM product_summary WHERE type = ?
   `,
@@ -22,7 +18,9 @@ const getProductByType = async type => {
 };
 
 const getProductByCategory = async category => {
-  removeOnlyFullGroupBy();
+  await myDataSource.query(
+    `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
+  );
   const result = await myDataSource.query(
     `SELECT * FROM product_summary WHERE category = ?
   `,
@@ -37,7 +35,9 @@ const getProductByCategory = async category => {
 };
 
 const getProductDetailById = async product_id => {
-  removeOnlyFullGroupBy();
+  await myDataSource.query(
+    `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
+  );
   const result = await myDataSource.query(
     `SELECT * FROM product_detail WHERE id = ?
   `,

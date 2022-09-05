@@ -1,13 +1,9 @@
 const { myDataSource } = require('./typeorm-client');
 
-const removeOnlyFullGroupBy = async () => {
+const getCartByUserId = async user_id => {
   await myDataSource.query(
     `SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))`
   );
-};
-
-const getCartByUserId = async user_id => {
-  removeOnlyFullGroupBy();
   const user_cart = await myDataSource.query(
     `
   SELECT * FROM cart_data WHERE user_id = ?
@@ -28,7 +24,6 @@ const getCartByUserId = async user_id => {
 };
 
 const getProductSizeIdByProductIdAndSizeId = async (product_id, size_id) => {
-  removeOnlyFullGroupBy();
   try {
     let product_size_id_temp = await myDataSource.query(
       `SELECT id FROM product_size WHERE (product_id = ? AND size_id = ?)`,
