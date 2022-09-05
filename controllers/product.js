@@ -1,25 +1,49 @@
 const productService = require('../services/product');
 
-// 상품정보 가져오기
-const getProductDetails = async (req, res) => {
+const getProduct = async (req, res) => {
+  const parameter = req.query;
+  const key = Object.keys(parameter);
+  console.log('파라미터', parameter, key);
+  let result;
   try {
-    const productId = req.params.id;
-    const productDetails = await productService.productDetail(productId);
-    return res.status(201).json(productDetails);
+    if (key[0] === 'type') {
+      result = await getProductByType(parameter);
+    } else if (key[0] === 'category') {
+      result = await getProductByCategory(parameter);
+    } else if (key[0] === 'product_id') {
+      result = await getProductDetail(parameter);
+    } else {
+      let error = new Error('Error: Wrong path');
+      error.code = 404;
+      throw error;
+    }
+    console.log(result);
+    res.status(200).json(result);
   } catch (error) {
-    return res.status(error.statusCode || 500).json({ message: error.message });
+    console.log('컨트롤', error);
+    res.status(error.code).json(error.message);
   }
 };
 
-// 상품정보 
-const getProducts = async (req, res) => {
-  try {
-    const keyword = req.res.sort;
-    const searchList = await productService.getProducts(keyword);
-    return res.status(201).json(searchList);
-  } catch (error) {
-    return res.status(error.statusCode || 500).json({ message: error.message });
-  }
+//key에 따른 분기
+const getProductByType = async parameter => {
+  const { type } = parameter;
+  const result = await productService.getProductByType(type);
+  return result;
 };
 
-module.exports = { getProductDetails, getProducts };
+const getProductByCategory = async parameter => {
+  const { category } = parameter;
+  const result = await productService.getProductByCategory(category);
+  return result;
+};
+
+const getProductDetail = async parameter => {
+  const { product_id } = parameter;
+  const result = await productService.getProductDetail(product_id);
+  return result;
+};
+
+module.exports = {
+  getProduct,
+};

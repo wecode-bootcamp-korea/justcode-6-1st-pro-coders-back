@@ -1,48 +1,97 @@
-const { getCartItemsById } = require('../models/cart');
 const cartService = require('../services/cart');
 
-const readCartItems = async (req, res) => {
-  const userId = req.userId;
-  const cartItems = await getCartItemsById(userId);
-  return res.json(cartItems);
-};
-
-const addCartItem = async (req, res) => {
-  const userId = req.userId;
-  const { product_details_id, quantity } = req.body;
-  await cartService.addCartItem(userId, product_details_id, quantity);
-
-  res.status(201).json({ message: 'item added successfully' });
-};
-
-const deleteCartItem = async (req, res) => {
-  const cartId = req.params.id;
+const getUserCart = async (req, res) => {
+  //const token = req.get('authorization');
+  const { user_id } = req.query;
   try {
-    await cartService.deleteCartItem(cartId);
-  } catch (err) {
-    console.log(err);
+    const result = await cartService.getUserCart(
+      user_id //, token
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(error.code).json(error.message);
   }
-  res.sendStatus(204);
 };
 
-const updateCartItem = async (req, res) => {
-  const cartId = req.params.id;
-  const { quantity, cal } = req.body;
-  const calCondition = {
-    minus: quantity - 1,
-    plus: quantity + 1,
+const addCart = async (req, res) => {
+  //const token = req.get('authorization');
+  const hasKey = {
+    user_id: false,
+    product_id: false,
+    size_id: false,
+    count: false,
   };
-  try {
-    await cartService.updateCartItem(cartId, calCondition[cal]);
-  } catch (err) {
-    console.log(err);
+  const requireKey = Object.keys(hasKey);
+
+  Object.entries(req.body).forEach(keyValue => {
+    const [key, value] = keyValue;
+    if (requireKey.includes(key) && value) {
+      hasKey[key] = true;
+    }
+  });
+  const hasKeyArray = Object.entries(hasKey);
+  for (let i = 0; i < hasKeyArray.length; i++) {
+    const [key, value] = hasKeyArray[i];
+    if (!value) {
+      res.status(400).json({ message: `please enter ${key}` });
+      return;
+    }
   }
-  res.status(200).json({ message: 'item updated successfully' });
+
+  const { user_id, product_id, size_id, count } = req.body;
+  try {
+    const result = await cartService.addCart(
+      user_id,
+      //token,
+      product_id,
+      size_id,
+      count
+    );
+    res.status(200).json({ message: 'Item Added' });
+  } catch (error) {
+    console.log(error);
+    res.status(error.code).json(error.message);
+  }
+};
+
+const deleteItem = async (req, res) => {
+  const { cart_id } = req.query;
+  if (!cart_id) {
+    res.status(400).json({ message: `please enter cart_id` });
+    return;
+  }
+  try {
+    const result = await cartService.deleteItem(
+      cart_id //, token
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(error.code).json(error.message);
+  }
+};
+
+const deleteAllItem = async (req, res) => {
+  const { user_id } = req.query;
+  if (!user_id) {
+    res.status(400).json({ message: `please enter user_id` });
+    return;
+  }
+  try {
+    const result = await cartService.deleteAllItem(
+      user_id //, token
+    );
+    res.status(200).json({ massege: 'All Item Removed' });
+  } catch (error) {
+    console.log(error);
+    res.status(error.code).json(error.message);
+  }
 };
 
 module.exports = {
-  readCartItems,
-  addCartItem,
-  deleteCartItem,
-  updateCartItem,
+  getUserCart,
+  addCart,
+  deleteItem,
+  deleteAllItem,
 };

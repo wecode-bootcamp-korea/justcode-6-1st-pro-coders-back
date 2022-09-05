@@ -10,5 +10,6 @@ VALUES
 ('nobug@coder.com', '$2a$12$2sx7ucm/nUsbuoFLWwlxieUNC6w77agTCuwp8INCBaU8AyuqMP49e', 'Jodebug', '010-0000-0000', '2007-05-30', 'female', 5)
 
 -- migrate:down
-
-TRUNCATE users
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE users;
+SET FOREIGN_KEY_CHECKS = 1;

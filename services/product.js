@@ -1,11 +1,23 @@
-const getProduct = require('../models/product');
+const mongoose = require('mongoose');
+const productDao = require('../models/product');
 
-const productDetail = async id => {
-  return await getProduct.getProductDetail(id);
+const getProductByType = async type => {
+  const result = await productDao.getProductByType(type);
+  return result;
 };
 
-const getProducts = async keyword => {
-  return await getProduct.getProducts(keyword);
+const getProductByCategory = async category => {
+  const result = await productDao.getProductByCategory(category);
+  return result;
 };
 
-module.exports = { productDetail, getProducts };
+const getProductDetail = async product_id => {
+  const result = await productDao.getProductDetailById(product_id);
+  return result;
+};
+
+module.exports = {
+  getProductByType,
+  getProductByCategory,
+  getProductDetail,
+};

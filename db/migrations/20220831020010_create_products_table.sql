@@ -4,9 +4,11 @@ CREATE TABLE products (
   product_code VARCHAR(100) UNIQUE NOT NULL,
   title VARCHAR(100) NOT NULL,
   price DECIMAL(7,0) NOT NULL,
+  price_c VARCHAR(100) NULL,
   is_discounted TINYINT NOT NULL,
   discount_percent DECIMAL(7,0),
   discounted_price DECIMAL(7,0),
+  discounted_price_c VARCHAR(100),
   color_id INT,
   keyword_id INT,
   type_id INT,
@@ -15,6 +17,10 @@ CREATE TABLE products (
   gender_id INT,
   main_image VARCHAR(3000),
   sub_image VARCHAR(3000),
+  back_image VARCHAR(3000),
+  high_image VARCHAR(3000),
+
+
   FOREIGN KEY (color_id) REFERENCES color (id),
   FOREIGN KEY (keyword_id) REFERENCES keyword (id),
   FOREIGN KEY (type_id) REFERENCES type (id),
