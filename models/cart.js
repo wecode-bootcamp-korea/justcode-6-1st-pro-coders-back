@@ -1,23 +1,4 @@
-const { DataSource } = require('typeorm');
-
-const myDataSource = new DataSource({
-  type: process.env.TYPEORM_CONNECTION,
-  host: process.env.TYPEORM_HOST,
-  port: process.env.TYPEORM_PORT,
-  username: process.env.TYPEORM_USERNAME,
-  password: process.env.TYPEORM_PASSWORD,
-  database: process.env.TYPEORM_DATABASE,
-});
-
-myDataSource
-  .initialize()
-  .then(() => {
-    console.log('Data Source has been initialized!');
-    removeOnlyFullGroupBy();
-  })
-  .catch(() => {
-    console.log('Date source initializing fail');
-  });
+const { myDataSource } = require('./typeorm-client');
 
 const removeOnlyFullGroupBy = async () => {
   await myDataSource.query(
@@ -26,6 +7,7 @@ const removeOnlyFullGroupBy = async () => {
 };
 
 const getCartByUserId = async user_id => {
+  removeOnlyFullGroupBy();
   const user_cart = await myDataSource.query(
     `
   SELECT * FROM cart_data WHERE user_id = ?
@@ -44,7 +26,9 @@ const getCartByUserId = async user_id => {
   result.cartList = user_cart;
   return result;
 };
+
 const getProductSizeIdByProductIdAndSizeId = async (product_id, size_id) => {
+  removeOnlyFullGroupBy();
   try {
     let product_size_id_temp = await myDataSource.query(
       `SELECT id FROM product_size WHERE (product_id = ? AND size_id = ?)`,
