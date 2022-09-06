@@ -1,12 +1,9 @@
 const cartService = require('../services/cart');
 
 const getUserCart = async (req, res) => {
-  //const token = req.get('authorization');
-  const { user_id } = req.query;
+  const token = req.get('authorization');
   try {
-    const result = await cartService.getUserCart(
-      user_id //, token
-    );
+    const result = await cartService.getUserCart(token);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -15,11 +12,11 @@ const getUserCart = async (req, res) => {
 };
 
 const addCart = async (req, res) => {
-  //const token = req.get('authorization');
+  const token = req.get('authorization');
   const hasKey = {
     user_id: false,
     product_id: false,
-    size_id: false,
+    size: false,
     count: false,
   };
   const requireKey = Object.keys(hasKey);
@@ -39,13 +36,13 @@ const addCart = async (req, res) => {
     }
   }
 
-  const { user_id, product_id, size_id, count } = req.body;
+  const { user_id, product_id, size, count } = req.body;
   try {
     const result = await cartService.addCart(
-      user_id,
-      //token,
+      //user_id,
+      token,
       product_id,
-      size_id,
+      size,
       count
     );
     res.status(200).json({ message: 'Item Added' });
@@ -56,15 +53,14 @@ const addCart = async (req, res) => {
 };
 
 const deleteItem = async (req, res) => {
+  const token = req.get('authorization');
   const { cart_id } = req.query;
   if (!cart_id) {
     res.status(400).json({ message: `please enter cart_id` });
     return;
   }
   try {
-    const result = await cartService.deleteItem(
-      cart_id //, token
-    );
+    const result = await cartService.deleteItem(cart_id, token);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -73,6 +69,7 @@ const deleteItem = async (req, res) => {
 };
 
 const deleteAllItem = async (req, res) => {
+  const token = req.get('authorization');
   const { user_id } = req.query;
   if (!user_id) {
     res.status(400).json({ message: `please enter user_id` });
@@ -80,7 +77,8 @@ const deleteAllItem = async (req, res) => {
   }
   try {
     const result = await cartService.deleteAllItem(
-      user_id //, token
+      //user_id,
+      token
     );
     res.status(200).json({ massege: 'All Item Removed' });
   } catch (error) {
