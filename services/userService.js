@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 // 사용자 회원가입
 const createUser = async (email, nickname, password, phone_number) => {
-  const hashedPw = await bcrypt.hash(password, 10);
+  const hashedPw = await bcrypt.hash(password, 5);
   await userDao.createUser(email, nickname, hashedPw, phone_number);
 };
 
