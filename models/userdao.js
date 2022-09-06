@@ -23,7 +23,7 @@ const getUserByEmail = async email => {
     `SELECT * FROM users WHERE email = ?`,
     [email]
   );
-
+  console.log(user);
   return user;
 };
 

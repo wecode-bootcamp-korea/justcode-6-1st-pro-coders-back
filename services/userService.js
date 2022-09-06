@@ -35,20 +35,21 @@ const getUser = async token => {
 // 사용자 로그인
 const userLogin = async (email, password) => {
   const user = await userDao.getUserByEmail(email);
-
   const result = { state: 'fail', token: '' };
 
   if (user) {
     const ok = await bcrypt.compare(password, user.password);
-
+    console.log(ok);
     if (ok) {
       const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY);
-      result.user_id = user_id;
+      result.user_id = user.id;
       result.state = 'success';
       result.token = token;
+    } else {
+      let error = new Error('');
     }
   }
-
+  console.log(result);
   return result;
 };
 

@@ -354,6 +354,23 @@ CREATE TABLE `store` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Temporary view structure for view `store_data`
+--
+
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `store_data` AS SELECT
+ 1 AS `id`,
+ 1 AS `name`,
+ 1 AS `address`,
+ 1 AS `tel`,
+ 1 AS `time`,
+ 1 AS `type`,
+ 1 AS `lat`,
+ 1 AS `lng`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `store_type`
 --
 
@@ -538,6 +555,24 @@ CREATE TABLE `users` (
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `size_by_product` AS select `products`.`id` AS `id`,`size`.`name` AS `size` from ((`products` left join `product_size` on((`products`.`id` = `product_size`.`product_id`))) left join `size` on((`product_size`.`size_id` = `size`.`id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `store_data`
+--
+
+/*!50001 DROP VIEW IF EXISTS `store_data`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `store_data` AS select `store`.`id` AS `id`,`store`.`name` AS `name`,`store`.`address` AS `address`,`store`.`tel` AS `tel`,`store`.`time` AS `time`,`store_type`.`type` AS `type`,`store`.`lat` AS `lat`,`store`.`lng` AS `lng` from (`store` left join `store_type` on((`store`.`type_id` = `store_type`.`id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

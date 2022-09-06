@@ -2,9 +2,10 @@ const cartService = require('../services/cart');
 
 const getUserCart = async (req, res) => {
   const token = req.get('authorization');
+  console.log(token);
   const { user_id } = req.query;
   try {
-    const result = await cartService.getUserCart(token);
+    const result = await cartService.getUserCart(user_id);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -17,7 +18,7 @@ const addCart = async (req, res) => {
   const hasKey = {
     user_id: false,
     product_id: false,
-    size_id: false,
+    size: false,
     count: false,
   };
   const requireKey = Object.keys(hasKey);
@@ -37,13 +38,13 @@ const addCart = async (req, res) => {
     }
   }
 
-  const { user_id, product_id, size_id, count } = req.body;
+  const { user_id, product_id, size, count } = req.body;
   try {
     const result = await cartService.addCart(
       user_id,
       //token,
       product_id,
-      size_id,
+      size,
       count
     );
     res.status(200).json({ message: 'Item Added' });

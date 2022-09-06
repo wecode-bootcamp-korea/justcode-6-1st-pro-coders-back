@@ -2,23 +2,24 @@ const mongoose = require('mongoose');
 const cartDao = require('../models/cart');
 const jwt = require('jsonwebtoken');
 
-const getUserCart = async token => {
-  let user_id;
-  if (token) {
-    token = token.slice(7);
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-      if (err) {
-        let error = new Error('Error: Invaild Access');
-        error.code = 403;
-        throw error;
-      } else {
-        console.log('in else', decoded);
-        user_id = decoded.userId;
-      }
-    });
-  } else {
-    res.status(401).json({ message: 'Error: Need Authorization' });
-  }
+const getUserCart = async user_id => {
+  //let user_id;
+  // if (token) {
+  //   token = token.slice(7);
+  //   jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+  //   console.log(err)
+  // if (err) {
+  //       let error = new Error('Error: Invaild Access');
+  //       error.code = 403;
+  //       throw error;
+  //     } else {
+  //       console.log('in else', decoded);
+  //       user_id = decoded.userId;
+  //     }
+  //   });
+  // } else {
+  //   res.status(401).json({ message: 'Error: Need Authorization' });
+  // }
   console.log(user_id);
   const result = await cartDao.getCartByUserId(user_id);
   return result;
@@ -27,14 +28,14 @@ const getUserCart = async token => {
 const addCart = async (
   user_id, //token,
   product_id,
-  size_id,
+  size,
   count
 ) => {
   //토큰 유효성 확인
   await cartDao.isUserVaild(user_id);
   const product_size_id = await cartDao.getProductSizeIdByProductIdAndSizeId(
     product_id,
-    size_id
+    size
   );
   await cartDao.isCartItemAlreadyExist(user_id, product_size_id);
   const result = await cartDao.postCart(user_id, product_size_id, count);
