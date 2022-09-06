@@ -23,11 +23,11 @@ const getCartByUserId = async user_id => {
   return result;
 };
 
-const getProductSizeIdByProductIdAndSizeId = async (product_id, size_id) => {
+const getProductSizeIdByProductIdAndSize = async (product_id, size) => {
   try {
     let product_size_id_temp = await myDataSource.query(
-      `SELECT id FROM product_size WHERE (product_id = ? AND size_id = ?)`,
-      [product_id, size_id]
+      `SELECT product_size.id FROM product_size LEFT JOIN size ON product_size.size_id = size.id  WHERE (product_id = ? AND size.name = ?)`,
+      [product_id, size]
     );
     const product_size_id = Object.values(
       JSON.parse(JSON.stringify(product_size_id_temp))
@@ -138,7 +138,7 @@ const deleteCartByids = async cart_id_arr => {
 
 module.exports = {
   getCartByUserId,
-  getProductSizeIdByProductIdAndSizeId,
+  getProductSizeIdByProductIdAndSize,
   isUserVaild,
   isCartItemAlreadyExist,
   postCart,
