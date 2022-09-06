@@ -3,9 +3,25 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // 사용자 회원가입
-const createUser = async (email, nickname, password, phone_number) => {
+const createUser = async (
+  email,
+  password,
+  name,
+  phone_number,
+  date_of_birth,
+  gender,
+  dormancy_prevention_period
+) => {
   const hashedPw = await bcrypt.hash(password, 10);
-  await userDao.createUser(email, nickname, hashedPw, phone_number);
+  return await userDao.createUser(
+    email,
+    hashedPw,
+    name,
+    phone_number,
+    date_of_birth,
+    gender,
+    dormancy_prevention_period
+  );
 };
 
 // 이메일 중복체크

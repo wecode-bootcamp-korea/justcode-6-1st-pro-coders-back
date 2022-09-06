@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const getUserCart = async token => {
   let user_id = null;
+  console.log(typeof token);
+  console.log('토큰: ', token);
   if (token) {
-    token = token.slice(7);
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       console.log(err);
       if (err) {
@@ -35,7 +36,6 @@ const addCart = async (
   //토큰 유효성 확인
   let user_id = null;
   if (token) {
-    token = token.slice(7);
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       console.log(err);
       if (err) {
@@ -62,15 +62,11 @@ const addCart = async (
   return result;
 };
 
-const deleteItem = async (
-  //cart_id,
-  token
-) => {
+const deleteItem = async (cart_id, token) => {
   //토큰 유효성 확인
 
   let user_id = null;
   if (token) {
-    token = token.slice(7);
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       console.log(err);
       if (err) {
@@ -100,7 +96,6 @@ const deleteAllItem = async (
   //토큰 유효성 확인
   let user_id = null;
   if (token) {
-    token = token.slice(7);
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
       console.log(err);
       if (err) {

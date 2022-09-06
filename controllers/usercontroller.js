@@ -2,14 +2,33 @@ const userService = require('../services/userService');
 
 // 사용자 회원가입
 const createUser = async (req, res) => {
-  const { email, nickname, password, phone_number } = req.body;
-
+  let userData = {
+    email: null,
+    password: null,
+    name: null,
+    phone_number: null,
+    date_of_birth: null,
+    gender: null,
+    dormancy_prevention_period: null,
+  };
+  for (let key in req.body) {
+    userData[key] = req.body[key];
+  }
+  console.log(userData);
   try {
-    await userService.createUser(email, nickname, password, phone_number);
-
+    await userService.createUser(
+      userData.email,
+      userData.password,
+      userData.name,
+      userData.phone_number,
+      userData.date_of_birth,
+      userData.gender,
+      userData.dormancy_prevention_period
+    );
     return res.status(201).json({ message: 'success' });
-  } catch (err) {
-    res.status(err.status || 500).json(err.message);
+  } catch (error) {
+    console.log(error);
+    res.status(error.status || 500).json(error.message);
   }
 };
 
@@ -60,13 +79,11 @@ const userLogin = async (req, res) => {
         return res.status(401).json({ message: 'login fail' });
 
       case 'success':
-        return res
-          .status(200)
-          .json({
-            message: 'login success',
-            token: result.token,
-            user_id: result.user_id,
-          });
+        return res.status(200).json({
+          message: 'login success',
+          token: result.token,
+          user_id: result.user_id,
+        });
     }
   } catch (err) {
     res.status(err.status || 500).json(err.message);

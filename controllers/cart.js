@@ -70,7 +70,7 @@ const deleteItem = async (req, res) => {
 
 const deleteAllItem = async (req, res) => {
   const token = req.get('authorization');
-  //const { user_id } = req.query;
+  const { user_id } = req.query;
   if (!user_id) {
     res.status(400).json({ message: `please enter user_id` });
     return;

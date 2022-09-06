@@ -1,11 +1,29 @@
 const { myDataSource } = require('./typeorm-client');
 
 // 사용자 회원가입
-const createUser = async (email, nickname, password, phone_number) => {
+const createUser = async (
+  email,
+  hashedPw,
+  name,
+  phone_number,
+  date_of_birth,
+  gender,
+  dormancy_prevention_period
+) => {
   await myDataSource.query(
-    `INSERT INTO users(email, nickname, password, phone_number) VALUES (?,?,?)`,
-    [email, nickname, password, phone_number]
+    `INSERT INTO users(email, password, name, phone_number,
+      date_of_birth, gender, dormancy_prevention_period) VALUES (?,?,?,?,?,?,?)`,
+    [
+      email,
+      hashedPw,
+      name,
+      phone_number,
+      date_of_birth,
+      gender,
+      dormancy_prevention_period,
+    ]
   );
+  return;
 };
 
 // 이메일 중복체크
