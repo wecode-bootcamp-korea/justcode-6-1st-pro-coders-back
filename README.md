@@ -15,7 +15,7 @@ JUSTCODE 6기 첫번째 프로젝트 7팀 Prospecs 사이트 클론 코딩 프�
     [원본 사이트 - 프로스펙스](https://www.prospecs.com/)   
   
   - 사이트 선정 이유 (백엔드)
-    이커머스 사이트의 특성을 잘 가지고 있으면서 동일 상품이 사이즈, 색상별로 분류되어 있기 때문에 모델링 및 DB 작성에 있어 좀 더 풍부한 경험을 할 수 있을 것 이라 생각하여 본 사이트를 선정하였습니다. 
+    이커머스 사이트의 특성을 잘 가지고 있으면서 동일 상품이 사이즈, 색상별로 분류되어 있기 때문에 모델링 및 DB 작성에 있어 좀 더 풍부한 경험을 할 수 있을 것이라 생각하여 본 사이트를 선정하였습니다. 
 
   - 팀 구성   
     Front-end (3명): 봉원희, 이다익, 최승철   
@@ -31,7 +31,7 @@ JUSTCODE 6기 첫번째 프로젝트 7팀 Prospecs 사이트 클론 코딩 프�
 
 ## DB modeling
 
-<img src = "https://user-images.githubusercontent.com/107532513/188773675-6028a2e7-ca48-473f-b8f7-069a7952c4fe.png">
+<img src = "https://user-images.githubusercontent.com/107532513/188799644-ddb8932d-c2f7-4ead-9ed2-8638218efd4e.png">
 
 ## Technologies
 
