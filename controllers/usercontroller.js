@@ -5,7 +5,7 @@ const createUser = async (req, res) => {
   let userData = {
     email: null,
     password: null,
-    name: null,
+    nickname: null,
     phone_number: null,
     date_of_birth: null,
     gender: null,
@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
     await userService.createUser(
       userData.email,
       userData.password,
-      userData.name,
+      userData.nickname,
       userData.phone_number,
       userData.date_of_birth,
       userData.gender,

@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const createUser = async (
   email,
   password,
-  name,
+  nickname,
   phone_number,
   date_of_birth,
   gender,
@@ -16,7 +16,7 @@ const createUser = async (
   return await userDao.createUser(
     email,
     hashedPw,
-    name,
+    nickname,
     phone_number,
     date_of_birth,
     gender,

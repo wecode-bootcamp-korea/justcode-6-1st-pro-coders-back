@@ -4,7 +4,7 @@ const { myDataSource } = require('./typeorm-client');
 const createUser = async (
   email,
   hashedPw,
-  name,
+  nickname,
   phone_number,
   date_of_birth,
   gender,
@@ -16,7 +16,7 @@ const createUser = async (
     [
       email,
       hashedPw,
-      name,
+      nickname,
       phone_number,
       date_of_birth,
       gender,
