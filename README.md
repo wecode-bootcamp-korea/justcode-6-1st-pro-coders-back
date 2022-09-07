@@ -5,13 +5,13 @@
 
 ## Introduction
 
-### [JUSTCODE 6시 1st Project] Pro-Coders
+### [JUSTCODE 6시 1st Project] Pro-Coders     
 
-JUSTCODE 6기 첫번째 프로젝트 7팀 Prospecs 사이트 클론 코딩 프로젝트의 백엔드 세션입니다.
+JUSTCODE 6기 첫번째 프로젝트 7팀 Prospecs 사이트 클론 코딩 프로젝트의 백엔드 세션입니다.    
 
-- 프로젝트 Information
-  - 프로젝트 목표    
-    스포츠 웨어 브랜드인 Prospecs 공식 사이트 클론 코딩을 통해 이커머스 사이트의 기본 구조와 API를 구현하기
+- 프로젝트 Information     
+  - 프로젝트 목표       
+    스포츠 웨어 브랜드인 Prospecs 공식 사이트 클론 코딩을 통해 이커머스 사이트의 기본 구조와 API를 구현하기    
     [원본 사이트 - 프로스펙스](https://www.prospecs.com/)   
   
   - 사이트 선정 이유 (백엔드)
