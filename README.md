@@ -7,10 +7,17 @@
 
 ### [JUSTCODE 6시 1st Project] Pro-Coders
 
-JUSTCODE 6기 7팀의 첫번째 프로젝트인 Prospecs 사이트 클론 코딩 프로젝트의 백엔드 세션입니다.
+JUSTCODE 6기 첫번째 프로젝트 7팀 Prospecs 사이트 클론 코딩 프로젝트의 백엔드 세션입니다.
 
 - 프로젝트 Information
-  - 구성 
+  - 프로젝트 목표    
+    스포츠 웨어 브랜드인 Prospecs 공식 사이트 클론 코딩을 통해 이커머스 사이트의 기본 구조와 API를 구현하기
+    [원본 사이트 - 프로스펙스](https://www.prospecs.com/)   
+  
+  - 사이트 선정 이유 (백엔드)
+    이커머스 사이트의 특성을 잘 가지고 있으면서 동일 상품이 사이즈, 색상별로 분류되어 있기 때문에 모델링 및 DB 작성에 있어 좀 더 풍부한 경험을 할 수 있을 것 이라 생각하여 본 사이트를 선정하였습니다. 
+
+  - 팀 구성   
     Front-end (3명): 봉원희, 이다익, 최승철   
     Back-end (2명): 이신희, 조윤식  
   
@@ -19,7 +26,6 @@ JUSTCODE 6기 7팀의 첫번째 프로젝트인 Prospecs 사이트 클론 코딩
   - [프론트엔드 GitHub](https://github.com/wecode-bootcamp-korea/justcode-6-1st-pro-coders-front)   
   - [백엔드 GitHub](https://github.com/wecode-bootcamp-korea/justcode-6-1st-pro-coders-back)   
   - [프로젝트 Notion Page](https://www.notion.so/wecode/7team-Pro-Coders-6ed4512003274604aac55e2ee781e953)   
-  - [원본 사이트 - 프로스펙스](https://www.prospecs.com/)   
   
 ## Demo
 
