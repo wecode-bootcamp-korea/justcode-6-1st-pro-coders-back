@@ -14,12 +14,13 @@ const createUser = async (req, res) => {
   for (let key in req.body) {
     userData[key] = req.body[key];
   }
+  console.log(req);
   console.log(userData);
   try {
     await userService.createUser(
       userData.email,
       userData.password,
-      userData.name,
+      userData.nickname,
       userData.phone_number,
       userData.date_of_birth,
       userData.gender,
